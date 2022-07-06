@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur SYMSHOP{% endblock %}
+
+{% block body %}
+
+    {% include "_incs/_slider.html.twig" %}
+
+        <div class="container pt-3">
+        
+            <div class="p-5 bg-light">
+                    <h1 class="display-3">Bienvenue sur SYMSHOP</h1>
+                    <p class="lead">Nos nouveaux composants aux meilleurs prix</p>
+                    <hr class="my-2">
+                    <p>Voir nos produits</p>
+                    <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">BOUTIQUE</a>
+                    </p>
+            </div>
+
+            <div class="row py-5 rounded justify-content-center">
+            
+                <div class="col-3 col-lg-3 col-sm-12 bg-success text-white text-center">
+                    <i class="fa-solid fa-lock fa-2x"></i>
+                    <p class="text-white text-center">Produits de qualités, délivrés par des marques reconnues</p>
+                </div>
+                <div class="col-3 ms-1 col-lg-3 col-sm-12 py-5 bg-warning text-white text-center">
+                    <i class="fa-solid fa-check fa-2x"></i>
+                    <p class="text-white text-center">Nos moyens de paiement sont sécurisés</p>
+                </div>
+                <div class="col-3 ms-1 col-lg-3 col-sm-12 py-5 bg-info text-white text-center">
+                    <i class="fa-solid fa-truck-fast fa-2x"></i>
+                    <p class="text-white text-center">Livraison rapide assurée dans toute la france</p>
+                </div>
+
+            </div>
+
+            <section class="text-center my-5">
+                <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe a, ex dignissimos nihil ullam perferendis modi, nesciunt quidem reiciendis quis tempora doloribus quod vero aut similique facere velit sequi voluptatibus.
+                Sequi repellat labore adipisci nulla architecto vitae aut, quae deleniti delectus debitis modi blanditiis ullam quod, obcaecati maxime! Deserunt quis reprehenderit nobis maiores. Quo aliquam molestiae a, velit voluptatem itaque.</p>
+            </section>
+
+
+
+        </div>
+
+{% endblock %}
