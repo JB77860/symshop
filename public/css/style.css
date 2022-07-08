@@ -5,3 +5,9 @@
 .conteneur-base{
     min-height: 80vh;
 }
+
+@media screen and (max-width: 950px) {
+    table, th, td, tr, thead {
+        font-size:1.5vw !important;
+    }
+}

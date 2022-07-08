@@ -10,27 +10,48 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Accueil
+          <a class="nav-link active" href="{{ path("app_home") }}">Accueil
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Produits</a>
+          <a class="nav-link" href="{{ path("app_produits") }}">Produits</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li>
+
+          {% include "_incs/_cat_nav.html.twig" %}
+
+        {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a class="nav-link text-warning" href="{{ path("app_admin") }}">Back-office</a>
+          </li>
+        {% endif %}
+
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+
+        <nav class="class navbar ms-1 py-0">
+
+          <ul class="navbar-nav navbar-right">
+
+            {% if not app.user %}
+
+             <li class="nav-item">
+                <small><a class="nav-link" href="{{ path("app_login") }}">Connexion</a></small>
+            </li>
+            <li class="nav-item">
+                <small><a class="nav-link" href="{{ path("app_inscription") }}">Inscription</a></small>
+            </li>
+
+            {% else %}
+              
+            <li class="nav-item">
+                <small><a class="nav-link" href="{{ path("app_logout") }}"><i class="fas fa-power-off"></i> </a></small>
+            </li>
+
+            {% endif %}
+
+          </ul>
+
+        </nav>
+
     </div>
   </div>
 </nav>

@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}BACKOFFICE: AJOUTER UN PRODUIT{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="display4 text-center bg-primary text-white my-5">Ajouter un nouveau produit</h1>
+
+        {{ form_start(formProduit, {'attr' : {'class' : 'col-md-6 col-lg-4 mx-auto'}}) }}
+
+            {{ form_row(formProduit.nom) }}
+            {{ form_row(formProduit.categorie) }}
+            {{ form_row(formProduit.description) }}
+            {{ form_row(formProduit.prix) }}
+            {{ form_row(formProduit.image) }}
+            {{ form_row(formProduit.stock) }}
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Ajouter le produit</button>
+            </div>
+
+        {{ form_end(formProduit) }}
+
+    </div>
+
+{% endblock %}
