@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous nos composants
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container-fluid d-flex justify-content-center p-5">
+
+		<div class="col-md-4 col-lg-5">
+			<div class="card shadow-sm">
+
+				<img src="{{produit.image}}" class="img-fluid p-1 col-12" alt="">
+				<div class="card-body">
+					<h3 class="title text-center p-1">{{produit.nom}}</h3>
+					<p class="card-text">
+						{{produit.description}}
+						- This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+					<hr>
+					<p class="text-center fs-2 fw-bold">{{produit.prix}}€</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-outline-secondary">Ajouter</button>
+
+						</div>
+						<small class="text-muted">catégorie</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock %}
