@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="text-center"> 
+        <button class="btn btn-sm btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('app_admin_cat_index') }}" class="p-2 rounded text-center text-white bg-success"><i class="fa-solid fa-floppy-disk"></i></a>
+
+        <a href="{{ path('app_admin_cat_index') }}" class="p-2 rounded text-center text-white bg-primary"><i class="fa-solid fa-list"></i></a>
+
+          <a href="{{ path('app_categorie_supp', {'id' : categorie.id }) }}" class="p-2 rounded text-center text-white bg-danger" onClick="return confirm('Etes vous sur de vouloir supprimer cette catégorie ?');"><i class="fa-solid fa-trash"></i></a>
+    </div>
+{{ form_end(form) }}

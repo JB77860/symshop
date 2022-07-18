@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="display-4 col-md-7 text-center text-white bg-primary mx-auto show-lg my-2">Catégories</h1>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Slug</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for categorie in categories %}
+					<tr>
+						<td>{{ categorie.id }}</td>
+						<td>{{ categorie.nom }}</td>
+						<td>{{ categorie.slug }}</td>
+						<td>
+							<a href="{{ path('app_admin_cat_edit', {'id': categorie.id}) }}" class="p-2 rounded text-center text-white bg-warning"><i class="fa-solid fa-pen"></i></a>
+							<a href="{{ path('app_admin_cat_show', {'id': categorie.id}) }}" class="p-2 rounded text-center text-white bg-info"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ path('app_categorie_supp', {'id' : categorie.id }) }}" class="p-2 rounded text-center text-white bg-danger" onClick="return confirm('Etes vous sur de vouloir supprimer cette catégorie ?');"><i class="fa-solid fa-trash"></i></a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">Aucune catégorie pour le moment</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+        <div class="text-center mt-4">
+		    <a class="btn btn-primary btn-sm" href="{{ path('app_admin_cat_new') }}">Ajouter une catégorie</a>
+        </div>
+	</div>
+{% endblock %}

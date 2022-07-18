@@ -28,7 +28,48 @@
 					</div>
 				</div>
 			</div>
+
+			<h4 class="text-muted my-5 text-center">Votre avis compte...</h4>
+
+			{{ form_start(form, {'attr' :{'class' : 'col-md7 mx-auto'} }) }}
+
+			{{ form_row(form.auteur) }}
+			{{ form_row(form.contenu) }}
+
+			<button class="btn btn-primary" type="submit">Poster</button>
+
+			{{ form_end(form)}}
+
+			<h4 class="my-2 mx-auto text-muted text-center">Vos réactions...</h4>
+
+			<section style="overflow: auto; max-height: 40vh !important" class="my-5 text-center col-md-7 mx-auto bg-light p-2">
+
+				
+
+				{% for avis in produit.avis %}
+
+					<div class="mx-auto alert alert-light text-primary p-2">
+						<span>
+							<strong>Posté par {{ avis.auteur }}</strong>
+						</span>
+						<small class="fs-italic">
+							le
+							{{ avis.createdAt | date('d/m/Y') }}
+							à
+							{{ avis.createdAt | date('H:i:s') }}
+						</small>
+
+						<p class="text-center">{{ avis.contenu }}</p>
+						<hr>
+					</div>
+
+				{% endfor %}
+
+			</section>
+
+
 		</div>
+
 
 	</div>
 

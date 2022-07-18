@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de membres
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="display-4 col-md-7 text-center text-white bg-primary mx-auto show-lg my-2">Membres</h1>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					{% for col in colonnes %}
+
+						{% if col != 'password' %}
+							<th>{{ col }}</th>
+						{% endif %}
+                        
+					{% endfor %}
+
+					<th>ACTIONS</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.id }}</td>
+						<td>{{ user.nom }}</td>
+						<td>{{ user.prenom }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.roles[0] }}</td>
+						<td>
+							<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="p-2 rounded text-center text-white bg-warning">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+							<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="p-2 rounded text-center text-white bg-info">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+							<a href="{{ path('app_user_supp', {'id' : user.id }) }}" class="p-2 rounded text-center text-white bg-danger" onclick="return confirm('Etes vous sur de vouloir supprimer ce membre ?');">
+								<i class="fa-solid fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">Aucune membre</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="text-center mt-4">
+			<a class="btn btn-primary btn-sm" href="{{ path('app_admin_cat_new') }}">Ajouter un membre</a>
+		</div>
+	</div>
+{% endblock %}

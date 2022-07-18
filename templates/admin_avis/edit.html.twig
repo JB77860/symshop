@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BACKOFFICE - Modifier un avis
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<h1 class="display-4 col-md-7 text-center text-white bg-primary mx-auto my-5">Modifier un avis</h1>
+
+		{{ form_start(form, {'attr' :{'class' : 'col-md7 mx-auto'} }) }}
+
+		{{ form_row(form.auteur) }}
+		{{ form_row(form.contenu) }}
+
+		<button class="btn btn-primary" type="submit">Modifier</button>
+
+		{{ form_end(form)}}
+
+	</div>
+
+{% endblock %}

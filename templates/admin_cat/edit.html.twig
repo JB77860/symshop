@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Categorie
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="text-center text-white bg-primary mx-auto p-1 mt-5">Modifier la Catégorie</h1>
+
+		{{ include('admin_cat/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+	</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie
+{% endblock %}
+
+{% block body %}
+
+	<div class="container my-4">
+
+		<h1 class="display-4 col-md-7 text-center text-white bg-primary mx-auto show-lg my-2">Categorie</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ categorie.id }}</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ categorie.nom }}</td>
+				</tr>
+				<tr>
+					<th>Slug</th>
+					<td>{{ categorie.slug }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="text-center mt-4">
+			<a href="{{ path('app_admin_cat_index') }}" class="p-2 rounded text-center text-white bg-primary"><i class="fa-solid fa-list"></i></a>
+
+			<a href="{{ path('app_admin_cat_edit', {'id': categorie.id}) }}" class="p-2 rounded text-center text-white bg-warning"><i class="fa-solid fa-pen"></i></a>
+
+			<a href="{{ path('app_categorie_supp', {'id' : categorie.id }) }}" class="p-2 rounded text-center text-white bg-danger" onClick="return confirm('Etes vous sur de vouloir supprimer cette catégorie ?');"><i class="fa-solid fa-trash"></i></a>
+		</div>
+
+	</div>
+
+
+{% endblock %}
