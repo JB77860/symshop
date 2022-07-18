@@ -27,37 +27,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @Assert\NotBlank(
-     *  message = "Veuillez renseigner un email"
-     * )
-     * @Assert\Email(
-     *  message = "Veuillez saisir un email valide"
-     * )
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @Assert\NotBlank(
-     *  message = "Veuillez renseigner un mot de passe"
-     * )
-     * 
-     * @Assert\EqualTo(
-     *  propertyPath = "confirm_password",
-     *  message = "Les mots de passe ne sont pas identiques"
-     * )
-     * 
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
-    /**
-     * @Assert\NotBlank(
      *  message = "Veuillez renseigner un nom"
      * )
      * 
@@ -87,6 +56,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
+
+    /**
+     * @Assert\NotBlank(
+     *  message = "Veuillez renseigner un email"
+     * )
+     * @Assert\Email(
+     *  message = "Veuillez saisir un email valide"
+     * )
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
+     /**
+     * @Assert\NotBlank(
+     *  message = "Veuillez renseigner un mot de passe"
+     * )
+     * 
+     * @Assert\EqualTo(
+     *  propertyPath = "confirm_password",
+     *  message = "Les mots de passe ne sont pas identiques"
+     * )
+     * 
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
 
     /**

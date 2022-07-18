@@ -3,9 +3,9 @@
 <li class="nav-item dropdown">
 	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégories de produits</a>
 	<div class="dropdown-menu">
-
-        {% for cat in categories.findAll() %}
-		    <a class="dropdown-item" href="#">{{ cat.nom }}</a>
+		<a href="{{ path('app_categories') }}" class="dropdown-item">--Toutes les catégoriesde produits--</a>
+        {% for cat in categories_g.findAll() %}
+		    <a class="dropdown-item" href="{{ path("app_categorie_produits", {'id' : cat.id}) }}">{{ cat.nom }}</a>
         {% endfor %}
         
 	</div>

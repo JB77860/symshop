@@ -5,7 +5,7 @@
 
 {% block body %}
 
-	<div class="container">
+	<div class="container my-4">
 		<h2 class="text-center text-white bg-primary mx-auto p-1 mt-5">Tous les produits enregistrés en base</h2>
 
         <div class="row justify-content-center">
@@ -20,7 +20,7 @@
 							<th>{{ colonne }}</th>
 						{% endif %}
 					{% endfor %}
-                            <th>action</th>
+                        	<th>action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,7 +33,7 @@
 						<td class="align-middle">{{ produit.stock }}</td>
                         <td class="align-middle gap-1">
                             <a href="{{ path('app_produit_editer', {'id' : produit.id }) }}" class="p-2 rounded text-center text-white bg-warning"><i class="fa-solid fa-pen"></i></a>
-                            <a href="{{ path('app_produit_supp', {'id' : produit.id }) }}" class="p-2 rounded text-center text-white bg-danger"><i class="fa-solid fa-trash"></i></a>
+                            <a href="{{ path('app_produit_supp', {'id' : produit.id }) }}" class="p-2 rounded text-center text-white bg-danger"><i class="fa-solid fa-trash" onClick="return confirm('Etes vous sur de vouloir supprimer ce produit ?');"></i></a>
                             <a href="{{ path('app_detail_produit', {'id' : produit.id }) }}" class="p-2 rounded text-center text-white bg-info"><i class="fa-solid fa-eye"></i></a>
                         </td>
 					</tr>

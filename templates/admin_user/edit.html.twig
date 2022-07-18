@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Membre
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="text-center text-white bg-primary mx-auto p-1 mt-5">Modifier le Membre</h1>
+
+		<div class="text-center">
+
+			<a href="{{ path('app_admin_users') }}" class="p-2 rounded text-center text-white bg-success">
+				<i class="fa-solid fa-floppy-disk"></i>
+			</a>
+
+			<a href="{{ path('app_admin_users') }}" class="p-2 rounded text-center text-white bg-primary">
+				<i class="fa-solid fa-list"></i>
+			</a>
+
+			<a href="{{ path('app_categorie_supp', {'id' : user.id }) }}" class="p-2 rounded text-center text-white bg-danger" onclick="return confirm('Etes vous sur de vouloir supprimer ce membre ?');">
+				<i class="fa-solid fa-trash"></i>
+			</a>
+		</div>
+
+	</div>
+
+{% endblock %}

@@ -68,9 +68,22 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/produits/editer/{id}", name="app_produit_editer")
      */
-    public function editerProduit(Produit $produit, Request $request, EntityManagerInterface $manager): Response
+    public function editerProduit(Produit $produit = null, Request $request, EntityManagerInterface $manager): Response
     {
+
+        if(!$produit)
+        {
+            $produit = new Produit;
+        }
+
         $id = $produit->getId();
+
+        if(!is_numeric($id) || is_null($id))
+        {
+            $this->addFlash('warning', "Le produit demandé n'existe pas");
+
+            return $this->redirectToRoute('app_admin_produits');
+        }
 
         $form = $this->createForm(ProduitFormType::class, $produit);
 

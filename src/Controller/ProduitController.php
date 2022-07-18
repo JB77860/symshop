@@ -2,11 +2,18 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\Avis;
+use App\Form\AvisFormType;
+use App\Repository\AvisRepository;
+use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /* On crée un controller pour traiter une partie de l'application, ici la partie produit */
 class ProduitController extends AbstractController
@@ -34,12 +41,66 @@ class ProduitController extends AbstractController
     /**
      * @Route("/produits/{id}", name="app_detail_produit", requirements={"id"="\d+"})
      */
-    public function detail($id, ProduitRepository $produitRepo): Response
+    public function detail($id, ProduitRepository $produitRepo, Request $request, EntityManagerInterface $manager): Response
     {
+        $avis = new Avis;
+        $form = $this->createForm(AvisFormType::class, $avis);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $avis->setCreatedAt(new DateTime())
+                ->setProduit($produitRepo->find($id));
+
+            $manager->persist($avis);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre avis a bien été posté');
+
+            return $this->redirectToRoute('app_detail_produit', [
+                'id' => $id
+            ]);
+        }
 
         return $this->render("produit/detail.html.twig", [
-            'produit' => $produitRepo->find($id)
+            'produit' => $produitRepo->find($id),
+            'form' => $form->createView()
         ]);
     }
 
+
+    /*
+       Fonction d'affichage selon la catégorie
+     */
+    /**
+     * @Route("/categories", name="app_categories")
+     */
+    public function categoriesAll(CategorieRepository $catRepo): Response
+    {
+        $categories = $catRepo->findAll();
+
+        return $this->render("produit/categories.html.twig", [
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * @Route("/categorie/{id}", name="app_categorie_produits")
+     */
+    public function categorieProduit($id, CategorieRepository $catRepo): Response
+    {
+        $categorie = $catRepo->find($id);
+
+        if(!$categorie)
+        {
+            $this->addFlash('warning', "Cette catégorie n'existe pas");
+
+            return $this->redirectToRoute('app_categories');
+        }
+
+        return $this->render("produit/categorie_produit.html.twig", [
+            'categorie' => $categorie
+        ]);
+    }
 }

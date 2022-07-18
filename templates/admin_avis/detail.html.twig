@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'avis {{ avis.id }}
+{% endblock %}
+
+{% block body %}
+
+
+	<h1 class="display-4 text-center text-white bg-primary col-md-7 mx-auto my-5">
+		BACKOFFICE - Gestion des avis
+	</h1>
+
+	<div style="max-height: 50vh !important; overflow:auto;" class="container">
+
+	
+			<div class="mx-auto alert alert-light text-primary p-2">
+				<h5 class="text-center text-warning">Avis du produit :
+					{{ avis.produit.nom }}
+					id:
+					{{ avis.produit.id }}</h5>
+
+				<span>
+					<strong>Posté par
+						{{ avis.auteur }}</strong>
+				</span>
+				<small class="fs-italic">
+					le
+					{{ avis.createdAt | date('d/m/Y') }}
+					à
+					{{ avis.createdAt | date('H:i:s') }}
+
+                    <i class="text-muted px-2"> avis id n° {{ avis.id }}</i>
+				</small>
+
+				<p class="text-center">{{ avis.contenu }}</p>
+
+				<div class="text-center">
+                    <a href="{{ path('app_admin_avis_edit', {'id' : avis.id }) }}" class="btn btn-sm btn-warning">
+						<i class="fa-solid fa-pen"></i>
+					</a>
+					<a href="{{ path('app_admin_avis_detail', {'id' : avis.id }) }}" class="btn btn-sm btn-info">
+						<i class="fa-solid fa-eye"></i>
+					</a>
+					<a onclick="return(confirm('Etes vous sur de vouloir supprimer cet avis ?'))" href="{{ path('app_admin_avis_del', {'id' : avis.id }) }}" class="btn btn-sm btn-danger">
+						<i class="fa-solid fa-trash"></i>
+					</a>
+					<a href="{{ path('app_admin_avis') }}" class="btn btn-sm btn-primary">
+						Retour
+					</a>
+				</div>
+				<hr>
+
+			</div>
+
+	</div>
+
+
+{% endblock %}
