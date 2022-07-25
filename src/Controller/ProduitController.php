@@ -43,6 +43,15 @@ class ProduitController extends AbstractController
      */
     public function detail($id, ProduitRepository $produitRepo, Request $request, EntityManagerInterface $manager): Response
     {
+        $produit = $produitRepo->find($id);
+
+        if(!$produit && !is_numeric($id))
+        {
+            $this->addFlash('warning', "Ce produit n'existe pas");
+
+            return $this->redirectToRoute('app_produits');
+        }
+
         $avis = new Avis;
         $form = $this->createForm(AvisFormType::class, $avis);
 

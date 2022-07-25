@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation commande
+{% endblock %}
+
+{% block body %}
+
+	<div class="container my-5">
+
+		<div class="p-5 alert alert-success text-success fw-bolder">
+			<h1 class="display-3">Félicitations</h1>
+			<p class="lead">Votre commande est enregistrée</p>
+			<hr class="my-2">
+			<p>Pour voir le détail</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="{{ path('app_panier_detail_commande') }}" role="button">Détail de la commande</a>
+			</p>
+		</div>
+
+	</div>
+
+{% endblock %}

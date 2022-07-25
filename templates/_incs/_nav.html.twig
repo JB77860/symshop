@@ -1,57 +1,73 @@
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">SYMSHOP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">SYMSHOP</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ path("app_home") }}">Accueil
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path("app_produits") }}">Produits</a>
-        </li>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path("app_home") }}">Accueil
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path("app_produits") }}">Produits</a>
+				</li>
 
-          {% include "_incs/_cat_nav.html.twig" %}
+				{% include "_incs/_cat_nav.html.twig" %}
 
-        {% if is_granted('ROLE_ADMIN') %}
-          <li class="nav-item">
-            <a class="nav-link text-warning" href="{{ path("app_admin") }}">Back-office</a>
-          </li>
-        {% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+					<li class="nav-item">
+						<a class="nav-link text-warning" href="{{ path("app_admin") }}">Back-office</a>
+					</li>
+				{% endif %}
 
-      </ul>
+			</ul>
 
-        <nav class="class navbar ms-1 py-0">
+			<nav class="class navbar ms-1 py-0">
 
-          <ul class="navbar-nav navbar-right">
+				<ul class="navbar-nav navbar-right">
 
-            {% if not app.user %}
+					{% if not app.user %}
 
-             <li class="nav-item">
-                <small><a class="nav-link" href="{{ path("app_login") }}">Connexion</a></small>
-            </li>
-            <li class="nav-item">
-                <small><a class="nav-link" href="{{ path("app_inscription") }}">Inscription</a></small>
-            </li>
+						<li class="nav-item">
+							<small>
+								<a class="nav-link" href="{{ path("app_login") }}">Connexion</a>
+							</small>
+						</li>
+						<li class="nav-item">
+							<small>
+								<a class="nav-link" href="{{ path("app_inscription") }}">Inscription</a>
+							</small>
+						</li>
 
-            {% else %}
-              
-            <li class="nav-item">
-                <small><a class="nav-link" href="{{ path("app_logout") }}"><i class="fas fa-power-off"></i> </a></small>
-            </li>
+					{% else %}
 
+            {% if panierService.total > 0 %}
+              <li class="nav-item">
+                <small>
+                  <a href="{{ path('app_panier') }}" class="nav-link text-warning">
+                    <i class="fa-solid fa-cart-shopping"></i> {{panierService.total}}€
+                  </a>
+                </small>
+              </li>
             {% endif %}
 
-          </ul>
+						<li class="nav-item">
+							<small>
+								<a class="nav-link" href="{{ path("app_logout") }}">
+									<i class="fas fa-power-off"></i>
+								</a>
+							</small>
+						</li>
 
-        </nav>
+					{% endif %}
 
-    </div>
-  </div>
+				</ul>
+
+			</nav>
+
+		</div>
+	</div>
 </nav>

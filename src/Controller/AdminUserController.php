@@ -3,61 +3,68 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/admin/user", name="app_admin_users")
+     * @Route("/admin/user", name="app_admin_user")
      */
-    public function index(UserRepository $userRepository, EntityManagerInterface $manager): Response
+    public function index(UserRepository $userRepo, EntityManagerInterface $manager): Response
     {
-
-        //$colonnes = $manager->getClassMetadata(User::class)->getFieldNames();
-        //$users = $userRepository->findAll();
 
         return $this->render('admin_user/index.html.twig', [
 
-            'users' => $userRepository->findAll(),
-            'colonnes' => $manager->getClassMetadata(User::class)->getFieldNames()
+            'users' => $userRepo->findAll()
         ]);
     }
 
     /**
-     * @Route("/admin/user/show/{id}", name="app_admin_user_show")
+     * @Route("/admin/user/editer/{id}", name="app_admin_user_editer")
      */
-    public function showUser(User $user)
+    public function editerUser(User $user = null, Request $request, EntityManagerInterface $manager): Response
     {
-        return $this->render('admin_user/show.html.twig', [
-            'user' => $user
+        if(!$user)
+        {
+            $user = new User;
+        }
+
+        $form = $this->createForm(UserFormType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->flush();
+
+            $this->addFlash("success", "L'utilisateur " .$user->getNom(). " a bien été modifié");
+
+            return $this->redirectToRoute("app_admin_user");
+        }
+
+
+        return $this->render('admin_user/user_editer.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
-     /**
-     * @Route("/admin/user/edit/{id}", name="app_admin_user_edit")
-     */
-    public function editUser(User $user)
-    {
-        return $this->render('admin_user/edit.html.twig', [
-            'user' => $user
-        ]);
-
-    }
 
     /**
-     * @Route("/admin/produits/supprimer/{id}", name="app_user_supp")
+     * @Route("/admin/user/supprimer/{id}", name="app_user_supprimer")
      */
     public function suppUser(User $user, EntityManagerInterface $manager): Response
     {
         $manager->remove($user);
         $manager->flush();
 
-        $this->addFlash('danger', "Le membre " .$user->getNom(). " a bien été supprimé");
+        $this->addFlash('danger', "L'utilisateur " . $user->getNom() . " a bien été supprimé");
 
-        return $this->redirectToRoute("app_admin_users");
+        return $this->redirectToRoute("app_admin_user");
     }
 }

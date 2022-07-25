@@ -6,10 +6,13 @@ use App\Entity\Produit;
 use App\Form\ProduitFormType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
@@ -41,7 +44,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/produits/ajouter", name="app_produit_ajouter")
      */
-    public function ajouterProduit(Request $request, EntityManagerInterface $manager): Response
+    public function ajouterProduit(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger): Response
     {
         $produit = new Produit;
 
@@ -51,6 +54,29 @@ class AdminController extends AbstractController
 
         if($formProduit->isSubmitted() && $formProduit->isValid())
         {
+            /** @var UploadedFile $imageFile */
+            $imageFile = $formProduit->get('image')->getData();
+
+            if($imageFile)
+            {
+                $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFileName = $slugger->slug($originalFileName);
+
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                try
+                {
+                    $imageFile->move($this->getParameter('image_directory'), $newFileName);
+                } 
+                catch(FileException $e)
+                {
+                    die("Erreur: " . $e->getMessage());
+                }
+
+                $produit->setImage($newFileName);
+            }
+
             $manager->persist($produit);
 
             $manager->flush();
@@ -68,7 +94,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/produits/editer/{id}", name="app_produit_editer")
      */
-    public function editerProduit(Produit $produit = null, Request $request, EntityManagerInterface $manager): Response
+    public function editerProduit(Produit $produit = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger): Response
     {
 
         if(!$produit)
@@ -91,6 +117,29 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+            if($imageFile)
+            {
+                $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeFileName = $slugger->slug($originalFileName);
+
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                try
+                {
+                    $imageFile->move($this->getParameter('image_directory'), $newFileName);
+                } 
+                catch(FileException $e)
+                {
+                    die("Erreur: " . $e->getMessage());
+                }
+
+                $produit->setImage($newFileName);
+            }
+
             $manager->flush();
 
             $this->addFlash("info", "Le produit n° $id a bien été modifié");
