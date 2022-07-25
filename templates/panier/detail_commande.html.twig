@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Détails commande
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container my-5">
+
+		<section class="mx-auto row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+			<table class="table table-stripped">
+				<thead>
+					<tr class="text-center align-middle">
+						<th>N° COMMANDE</th>
+						<th>NOM CLIENT</th>
+						<th>ADRESSE</th>
+						<th>DATE COMMANDE</th>
+						<th>PRODUIT</th>
+						<th>TOTAL</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in commandes %}
+						<tr class="align-middle text-center">
+							<td>{{ item.id }}</td>
+							<td class="fst-italic">{{ item.adresse }}
+								{{ item.codePostal }}
+								{{ item.ville}}</td>
+							<td>{{item.nom}}
+								{{item.prenom}}</td>
+							<td class="fst-italic">{{ item.dateCommande|date('d/m/Y') }}
+								à
+								{{ item.dateCommande|date('H:i:s') }}</td>
+							<td>
+								<ul>
+									{% for d in item.getCommandeDetails() %}
+
+										<li style="font-size: 0.8vw !important;" class="list-group-item fst-italic">
+											{{d.nomProduit }}
+											x
+											{{d.quantite}}
+											=
+											{{d.total}}€
+										</li>
+									{% endfor %}
+
+								</ul>
+							</td>
+							<td class="fw-bold">{{item.total}}€</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</section>
+
+	</div>
+
+
+{% endblock %}
+

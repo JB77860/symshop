@@ -14,7 +14,7 @@
 					<div class="col">
 						<div class="card shadow-sm">
                         
-                        <img src="{{produit.image}}" class="img-fluid" alt="">
+                        <img src="{{ asset('uploads/images') }}{{produit.image}}" class="img-fluid" alt="">
 							<div class="card-body">
                             <h3 class="title text-center p-1">{{produit.nom}}</h3>
 								<p class="card-text">{{produit.description}} - This is a wider card with suppoting text below as a natutal lead-in to additional ontent. This content is a little bit longer</p>
@@ -23,7 +23,8 @@
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group gap-1">
 										<a href="{{ path('app_detail_produit', {'id' : produit.id }) }}" type="button" class="btn btn-sm btn-outline-secondary">Voir</a>
-										<button type="button" class="btn btn-sm btn-success">Ajouter</button>
+										<a href="{{ path('app_panier_ajouter', {'id' : produit.id }) }}" type="button" class="btn btn-sm btn-success">Ajouter
+										<i class="fa-solid fa-cart-arrow-down"></i></a>
 									</div>
 									<small class="text-muted fs-italic ps-4 fs-6">{{produit.categorie.nom}}</small>
 								</div>

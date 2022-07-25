@@ -3,6 +3,7 @@ twig:
     form_themes: ['bootstrap_5_layout.html.twig']
     globals:
         categories_g: '@App\Repository\CategorieRepository'
+        panierService: '@App\Panier\PanierService'
 
 when@test:
     twig:
